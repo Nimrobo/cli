@@ -1,6 +1,6 @@
 # @nimrobo/cli
 
-Official CLI tool for interacting with [Nimrobo](https://nimrobo.com) AI APIs.
+Official CLI tool for interacting with [Nimrobo](https://nimroboai.com) AI APIs.
 
 ## Installation
 
