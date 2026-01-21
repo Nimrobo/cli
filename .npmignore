@@ -1,0 +1,32 @@
+# Source files (dist is published)
+src/
+
+# Tests
+tests/
+
+# Development files
+*.md
+!README.md
+CLAUDE.md
+jest.config.js
+tsconfig.json
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Git
+.git/
+.gitignore
+
+# npm
+node_modules/
+
+# Documentation (internal)
+docs/
+
+# Plan files
+*.plan.md
