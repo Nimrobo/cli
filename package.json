@@ -1,6 +1,6 @@
 {
   "name": "@nimrobo/cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "CLI tool for interacting with Nimrobo AI APIs - Voice Screening & Matching Network",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -16,11 +16,13 @@
     "test:int": "jest tests/integration",
     "test:e2e": "jest tests/e2e",
     "lint": "eslint src/**/*.ts",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "postinstall": "node scripts/postinstall.js"
   },
   "files": [
     "dist",
     "bin",
+    "scripts",
     "README.md",
     "LICENSE"
   ],
@@ -51,7 +53,8 @@
     "axios": "^1.6.0",
     "chalk": "^4.1.2",
     "commander": "^12.0.0",
-    "inquirer": "^8.2.6"
+    "inquirer": "^8.2.6",
+    "tabtab": "^3.0.2"
   },
   "devDependencies": {
     "@types/inquirer": "^8.2.10",

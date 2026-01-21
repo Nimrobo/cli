@@ -8,40 +8,68 @@ import { registerProjectsCommands } from './commands/projects';
 import { registerLinksCommands } from './commands/links';
 import { registerSessionsCommands } from './commands/sessions';
 import { registerNetCommands } from './commands/net';
+import { handleCompletion, installCompletion, uninstallCompletion } from './completion';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const packageJson = require('../package.json');
 
-const program = new Command();
+// Handle shell completion requests before parsing commands
+(async () => {
+  const isCompletion = await handleCompletion();
+  if (isCompletion) {
+    process.exit(0);
+  }
 
-program
-  .name('nimrobo')
-  .description('CLI tool for interacting with Nimrobo AI APIs')
-  .version(packageJson.version)
-  .option('--json', 'Output in JSON format')
-  .hook('preAction', (thisCommand) => {
-    const opts = thisCommand.opts();
-    if (opts.json) {
-      setJsonOutput(true);
-    }
-  });
+  const program = new Command();
 
-// Global auth commands (shared across both platforms)
-registerLoginCommand(program);
-registerLogoutCommand(program);
-registerStatusCommand(program);
+  program
+    .name('nimrobo')
+    .description('CLI tool for interacting with Nimrobo AI APIs')
+    .version(packageJson.version)
+    .option('--json', 'Output in JSON format')
+    .hook('preAction', (thisCommand) => {
+      const opts = thisCommand.opts();
+      if (opts.json) {
+        setJsonOutput(true);
+      }
+    });
 
-// Screen commands (Voice Screening Platform)
-const screenCommand = program
-  .command('screen')
-  .description('Voice screening platform commands');
+  // Global auth commands (shared across both platforms)
+  registerLoginCommand(program);
+  registerLogoutCommand(program);
+  registerStatusCommand(program);
 
-registerUserCommands(screenCommand);
-registerProjectsCommands(screenCommand);
-registerLinksCommands(screenCommand);
-registerSessionsCommands(screenCommand);
+  // Screen commands (Voice Screening Platform)
+  const screenCommand = program
+    .command('screen')
+    .description('Voice screening platform commands');
 
-// Net commands (Matching Network)
-registerNetCommands(program);
+  registerUserCommands(screenCommand);
+  registerProjectsCommands(screenCommand);
+  registerLinksCommands(screenCommand);
+  registerSessionsCommands(screenCommand);
 
-program.parse(process.argv);
+  // Net commands (Matching Network)
+  registerNetCommands(program);
+
+  // Completion commands
+  const completionCommand = program
+    .command('completion')
+    .description('Shell completion commands');
+
+  completionCommand
+    .command('install')
+    .description('Install shell tab completion')
+    .action(async () => {
+      await installCompletion();
+    });
+
+  completionCommand
+    .command('uninstall')
+    .description('Uninstall shell tab completion')
+    .action(async () => {
+      await uninstallCompletion();
+    });
+
+  program.parse(process.argv);
+})();
