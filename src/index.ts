@@ -8,6 +8,7 @@ import { registerProjectsCommands } from './commands/projects';
 import { registerLinksCommands } from './commands/links';
 import { registerSessionsCommands } from './commands/sessions';
 import { registerNetCommands } from './commands/net';
+import { registerInstallCommands } from './commands/install/skills';
 import { handleCompletion, installCompletion, uninstallCompletion } from './completion';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -70,6 +71,9 @@ const packageJson = require('../package.json');
     .action(async () => {
       await uninstallCompletion();
     });
+
+  // Install commands (skills, etc.)
+  registerInstallCommands(program);
 
   program.parse(process.argv);
 })();

@@ -3,7 +3,7 @@ import tabtab from 'tabtab';
 // Define the complete command tree for Nimrobo CLI
 const completionTree: Record<string, string[] | Record<string, string[]>> = {
   // Top-level commands
-  '': ['login', 'logout', 'status', 'screen', 'net', 'completion', '--json', '--help', '--version'],
+  '': ['login', 'logout', 'status', 'screen', 'net', 'completion', 'install', '--json', '--help', '--version'],
 
   // Screen commands
   'screen': ['user', 'projects', 'links', 'sessions'],
@@ -124,6 +124,9 @@ const completionTree: Record<string, string[] | Record<string, string[]>> = {
 
   // Completion commands
   'completion': ['install', 'uninstall'],
+
+  // Install commands
+  'install': ['skills'],
 };
 
 /**
