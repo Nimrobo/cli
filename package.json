@@ -1,6 +1,6 @@
 {
   "name": "@nimrobo/cli",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "CLI tool for interacting with Nimrobo AI APIs - Voice Screening & Matching Network",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

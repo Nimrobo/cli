@@ -88,9 +88,10 @@ describe('CLI E2E Tests', () => {
       const result = runCli('screen --help');
 
       expect(result.exitCode).toBe(0);
-      expect(result.stdout).toContain('login');
-      expect(result.stdout).toContain('logout');
-      expect(result.stdout).toContain('status');
+      expect(result.stdout).toContain('user');
+      expect(result.stdout).toContain('projects');
+      expect(result.stdout).toContain('links');
+      expect(result.stdout).toContain('sessions');
     });
 
     it('should display net help', () => {
@@ -117,7 +118,7 @@ describe('CLI E2E Tests', () => {
 
   describe('Status command (unauthenticated)', () => {
     it('should show not authenticated status', () => {
-      const result = runCli('screen status');
+      const result = runCli('status');
 
       // Should indicate not authenticated
       expect(result.stdout.toLowerCase()).toMatch(/not (authenticated|logged in)/i);

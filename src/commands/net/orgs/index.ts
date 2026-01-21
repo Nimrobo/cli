@@ -108,6 +108,7 @@ export function registerOrgsCommands(program: Command): void {
     .option('--keyword <keyword>', 'Search keyword')
     .option('--name <name>', 'Filter by name')
     .option('--status <status>', 'Filter by status')
+    .option('--website <website>', 'Filter by website')
     .option('--limit <limit>', 'Number of results', '20')
     .option('--skip <skip>', 'Number of results to skip', '0')
     .option('--sort <field>', 'Sort field (created_at, name)')
@@ -121,6 +122,7 @@ export function registerOrgsCommands(program: Command): void {
           keyword: options.keyword,
           name: options.name,
           status: options.status,
+          website: options.website,
           limit: parseInt(options.limit),
           skip: parseInt(options.skip),
           sort_field: options.sort,

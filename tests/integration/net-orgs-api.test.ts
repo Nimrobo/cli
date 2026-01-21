@@ -107,6 +107,38 @@ describe('Net Organizations API', () => {
 
       expect(mock.history.get[0].params).toMatchObject({ keyword: 'tech', limit: 10 });
     });
+
+    it('should support website filter for partial matching', async () => {
+      const mockOrgs = [
+        { id: 'org-1', name: 'GitHub', slug: 'github', status: 'active', data: { website: 'https://github.com' } },
+      ];
+
+      mock.onGet('/v1/orgs').reply(200, {
+        data: mockOrgs,
+        pagination: { limit: 20, skip: 0, has_more: false },
+      });
+
+      const result = await listOrgs({ website: 'github' });
+
+      expect(mock.history.get[0].params).toMatchObject({ website: 'github' });
+      expect(result.data).toHaveLength(1);
+      expect(result.data[0].name).toBe('GitHub');
+    });
+
+    it('should support combining website filter with other params', async () => {
+      mock.onGet('/v1/orgs').reply(200, {
+        data: [],
+        pagination: { limit: 10, skip: 0, has_more: false },
+      });
+
+      await listOrgs({ website: 'example.com', status: 'active', limit: 10 });
+
+      expect(mock.history.get[0].params).toMatchObject({
+        website: 'example.com',
+        status: 'active',
+        limit: 10,
+      });
+    });
   });
 
   describe('getOrgById', () => {

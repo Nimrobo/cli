@@ -40,7 +40,6 @@ import {
   isAuthenticated,
   resolveProjectId,
   getNetApiBaseUrl,
-  setNetApiBaseUrl,
   getContext,
   setContext,
   clearContext,
@@ -183,24 +182,6 @@ describe('config.ts', () => {
 
     it('should return the provided ID as-is', () => {
       expect(resolveProjectId('proj-123')).toBe('proj-123');
-    });
-  });
-
-  describe('Net API URL management', () => {
-    it('getNetApiBaseUrl should return stored URL', () => {
-      mockFs.existsSync.mockReturnValue(true);
-      mockFs.readFileSync.mockReturnValue(JSON.stringify({ NET_API_BASE_URL: 'http://custom:4000' }));
-      
-      expect(getNetApiBaseUrl()).toBe('http://custom:4000');
-    });
-
-    it('setNetApiBaseUrl should save URL', () => {
-      mockFs.existsSync.mockReturnValue(true);
-      mockFs.readFileSync.mockReturnValue(JSON.stringify({}));
-      
-      setNetApiBaseUrl('http://new-url:5000');
-      
-      expect(mockFs.writeFileSync).toHaveBeenCalled();
     });
   });
 

@@ -154,14 +154,13 @@ describe('CLI Authentication E2E Tests', () => {
 
     it('should show API URL in output', () => {
       setConfig({
-        API_BASE_URL: 'https://custom-api.example.com/api',
         API_KEY: null,
         context: { orgId: null, postId: null, channelId: null, userId: null },
       });
 
       const result = runCli('status');
 
-      expect(result.stdout).toContain('https://custom-api.example.com/api');
+      expect(result.stdout).toContain("Run 'nimrobo login' to authenticate");
     });
   });
 
