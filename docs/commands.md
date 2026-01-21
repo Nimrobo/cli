@@ -18,28 +18,28 @@ Quick reference for all Nimrobo CLI commands. Both namespaces share authenticati
 | # | Command | Description |
 |---|---------|-------------|
 | 5 | `nimrobo screen projects list` | List all projects |
-| 6 | `nimrobo screen projects get <id>` | Get project details |
+| 6 | `nimrobo screen projects get <projectId>` | Get project details |
 | 7 | `nimrobo screen projects create` | Create new project |
-| 8 | `nimrobo screen projects update <id>` | Update project |
-| 9 | `nimrobo screen projects use [id]` | Set/view default project |
+| 8 | `nimrobo screen projects update <projectId>` | Update project |
+| 9 | `nimrobo screen projects use [projectId]` | Set/view default project |
 
 ### Links
 | # | Command | Description |
 |---|---------|-------------|
 | 10 | `nimrobo screen links list` | List voice links |
 | 11 | `nimrobo screen links create` | Create voice link(s) |
-| 12 | `nimrobo screen links cancel <id>` | Cancel project link |
-| 13 | `nimrobo screen links update <id>` | Update instant link |
+| 12 | `nimrobo screen links cancel <linkId>` | Cancel project link |
+| 13 | `nimrobo screen links update <linkId>` | Update instant link |
 
 ### Sessions
 | # | Command | Description |
 |---|---------|-------------|
-| 14 | `nimrobo screen sessions status <id>` | Get session status |
-| 15 | `nimrobo screen sessions transcript <id>` | Get transcript |
-| 16 | `nimrobo screen sessions audio <id>` | Download audio URL |
-| 17 | `nimrobo screen sessions evaluation <id>` | Get evaluation |
-| 18 | `nimrobo screen sessions summary <id>` | Get/generate summary |
-| 19 | `nimrobo screen sessions summary-regenerate <id>` | Regenerate summary |
+| 14 | `nimrobo screen sessions status <sessionId>` | Get session status |
+| 15 | `nimrobo screen sessions transcript <sessionId>` | Get transcript |
+| 16 | `nimrobo screen sessions audio <sessionId>` | Download audio URL |
+| 17 | `nimrobo screen sessions evaluation <sessionId>` | Get evaluation |
+| 18 | `nimrobo screen sessions summary <sessionId>` | Get/generate summary |
+| 19 | `nimrobo screen sessions summary:regenerate <sessionId>` | Regenerate summary |
 
 ---
 
@@ -110,10 +110,10 @@ Quick reference for all Nimrobo CLI commands. Both namespaces share authenticati
 ### Applications
 | # | Command | Description |
 |---|---------|-------------|
-| 43 | `nimrobo net applications get <id>` | Get application |
-| 44 | `nimrobo net applications accept <id>` | Accept application |
-| 45 | `nimrobo net applications reject <id>` | Reject application |
-| 46 | `nimrobo net applications withdraw <id>` | Withdraw application |
+| 43 | `nimrobo net applications get <applicationId>` | Get application |
+| 44 | `nimrobo net applications accept <applicationId>` | Accept application |
+| 45 | `nimrobo net applications reject <applicationId>` | Reject application |
+| 46 | `nimrobo net applications withdraw <applicationId>` | Withdraw application |
 | 47 | `nimrobo net applications batch-action` | Batch accept/reject |
 
 ### Channels

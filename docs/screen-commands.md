@@ -361,7 +361,7 @@ nimrobo screen links update link_abc123 -f update.json
 
 ## Session Commands
 
-All session commands require `--type` (project or instant).
+Most session commands require `--type` (project or instant), except `summary` and `summary:regenerate` which use `-p <projectId>` for project sessions or `-i` for instant sessions.
 
 ### sessions status
 
@@ -464,13 +464,13 @@ nimrobo screen sessions summary sess_abc123 -i
 
 ---
 
-### sessions summary-regenerate
+### sessions summary:regenerate
 
 Force regeneration of summary.
 
 ```bash
-nimrobo screen sessions summary-regenerate sess_abc123 -p proj_xyz789
-nimrobo screen sessions summary-regenerate sess_abc123 -i
+nimrobo screen sessions summary:regenerate sess_abc123 -p proj_xyz789
+nimrobo screen sessions summary:regenerate sess_abc123 -i
 ```
 
 **Output:**

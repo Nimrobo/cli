@@ -78,8 +78,7 @@ export function setDefaultProject(projectId: string | null): void {
 }
 
 export function getApiBaseUrl(): string {
-  const config = loadConfig();
-  return config.API_BASE_URL;
+  return DEFAULT_CONFIG.API_BASE_URL;
 }
 
 export function isAuthenticated(): boolean {
@@ -100,14 +99,7 @@ export function resolveProjectId(projectIdOrDefault: string | undefined): string
 
 // Net API Base URL
 export function getNetApiBaseUrl(): string {
-  const config = loadConfig();
-  return config.NET_API_BASE_URL;
-}
-
-export function setNetApiBaseUrl(url: string): void {
-  const config = loadConfig();
-  config.NET_API_BASE_URL = url;
-  saveConfig(config);
+  return DEFAULT_CONFIG.NET_API_BASE_URL;
 }
 
 // Context management for net commands
