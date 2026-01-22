@@ -454,3 +454,89 @@ export function validateNetRejectInput(data: unknown): void {
     throw new Error('Invalid reject data: reason must be a string');
   }
 }
+
+// ============================================
+// Onboarding Validator
+// ============================================
+
+export interface OnboardProfileInput {
+  name?: string;
+  city?: string;
+  country?: string;
+  bio?: string;
+  content?: string;
+}
+
+export interface OnboardOrgInput {
+  name: string;
+  description?: string;
+  website?: string;
+}
+
+export interface OnboardInput {
+  profile: OnboardProfileInput;
+  org?: OnboardOrgInput;
+}
+
+/**
+ * Validate onboarding input data
+ */
+export function validateOnboardInput(data: unknown): OnboardInput {
+  if (typeof data !== 'object' || data === null) {
+    throw new Error('Invalid onboard data: expected an object');
+  }
+
+  const obj = data as Record<string, unknown>;
+
+  // Profile is required
+  if (!obj.profile || typeof obj.profile !== 'object') {
+    throw new Error('Invalid onboard data: profile section is required');
+  }
+
+  const profile = obj.profile as Record<string, unknown>;
+
+  // Validate profile fields
+  if (profile.name !== undefined && typeof profile.name !== 'string') {
+    throw new Error('Invalid onboard data: profile.name must be a string');
+  }
+
+  if (profile.city !== undefined && typeof profile.city !== 'string') {
+    throw new Error('Invalid onboard data: profile.city must be a string');
+  }
+
+  if (profile.country !== undefined && typeof profile.country !== 'string') {
+    throw new Error('Invalid onboard data: profile.country must be a string');
+  }
+
+  if (profile.bio !== undefined && typeof profile.bio !== 'string') {
+    throw new Error('Invalid onboard data: profile.bio must be a string');
+  }
+
+  if (profile.content !== undefined && typeof profile.content !== 'string') {
+    throw new Error('Invalid onboard data: profile.content must be a string');
+  }
+
+  // Org is optional, but if provided, validate it
+  if (obj.org !== undefined) {
+    if (typeof obj.org !== 'object' || obj.org === null) {
+      throw new Error('Invalid onboard data: org must be an object');
+    }
+
+    const org = obj.org as Record<string, unknown>;
+
+    // Org name is required if org section is provided
+    if (typeof org.name !== 'string' || org.name.trim().length === 0) {
+      throw new Error('Invalid onboard data: org.name is required');
+    }
+
+    if (org.description !== undefined && typeof org.description !== 'string') {
+      throw new Error('Invalid onboard data: org.description must be a string');
+    }
+
+    if (org.website !== undefined && typeof org.website !== 'string') {
+      throw new Error('Invalid onboard data: org.website must be a string');
+    }
+  }
+
+  return data as OnboardInput;
+}

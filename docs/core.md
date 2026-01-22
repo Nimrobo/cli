@@ -28,6 +28,9 @@ nimrobo logout
 
 # Check status
 nimrobo status
+
+# Onboard (set up profile and org from JSON)
+nimrobo onboard --file onboard.json
 ```
 
 ## Configuration

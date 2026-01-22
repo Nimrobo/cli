@@ -1,6 +1,6 @@
 # @nimrobo/cli
 
-Official CLI tool for interacting with [Nimrobo](https://nimroboai.com) AI APIs.
+Official CLI tool for interacting with [Nimrobo AI](https://nimroboai.com) APIs.
 
 ## Installation
 
@@ -11,25 +11,45 @@ npm install -g @nimrobo/cli
 ## Quick Start
 
 ```bash
-# Login (shared across both platforms)
+# Login (opens browser for authentication)
 nimrobo login
 
-# Check status
-nimrobo status
+# Set up your profile (first-time users)
+nimrobo onboard
 ```
 
 ## Commands
+
+### Authentication
+
+```bash
+nimrobo login                     # Browser-based login (recommended)
+nimrobo logout                    # Logout from the platform
+nimrobo status                    # Check authentication status
+```
+
+The default `nimrobo login` opens your browser for secure browser-based authentication. A verification code is displayed in the terminal to confirm the connection.
+
+### Onboarding (`nimrobo onboard`)
+
+Set up your profile and optionally create an organization. This is the recommended way to get started after logging in.
+
+```bash
+# View instructions and JSON schema
+nimrobo onboard
+
+# Generate a template file to fill out
+nimrobo onboard --generate-template
+
+# Apply your configuration
+nimrobo onboard --file onboard-template.json
+```
 
 ### Voice Screening Platform (`nimrobo screen`)
 
 Manage voice-based candidate screening with AI-powered interviews.
 
 ```bash
-# Authentication (shared across both platforms)
-nimrobo login                     # Login to the platform
-nimrobo logout                    # Logout from the platform
-nimrobo status                    # Check authentication status
-
 # Projects
 nimrobo screen projects list      # List all projects
 nimrobo screen projects create    # Create a new project

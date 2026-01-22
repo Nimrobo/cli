@@ -127,3 +127,6 @@ nimrobo screen --help       # Screen platform help
 nimrobo net --help          # Net platform help
 nimrobo <command> --help    # Help for specific command
 ```
+
+# Onboard (set up profile and org from JSON). run only if the user says to onboard. and follow the instructions as per the response and ask user questions to fill onboarding.
+nimrobo onboard

@@ -9,6 +9,7 @@ import { registerLinksCommands } from './commands/links';
 import { registerSessionsCommands } from './commands/sessions';
 import { registerNetCommands } from './commands/net';
 import { registerInstallCommands } from './commands/install/skills';
+import { registerOnboardCommand } from './commands/onboard';
 import { handleCompletion, installCompletion, uninstallCompletion } from './completion';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -39,6 +40,7 @@ const packageJson = require('../package.json');
   registerLoginCommand(program);
   registerLogoutCommand(program);
   registerStatusCommand(program);
+  registerOnboardCommand(program);
 
   // Screen commands (Voice Screening Platform)
   const screenCommand = program
