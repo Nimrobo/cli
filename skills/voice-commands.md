@@ -1,4 +1,4 @@
-# Screen Commands - Detailed Reference
+# Voice Commands - Detailed Reference
 
 Voice screening platform commands for interviews, screening, and diagnostic conversations.
 
@@ -66,7 +66,7 @@ nimrobo status
 Display authenticated user's profile.
 
 ```bash
-nimrobo screen user profile
+nimrobo voice user profile
 ```
 
 **Example output:**
@@ -81,7 +81,7 @@ Last Login:         2024-03-20
 
 **JSON output:**
 ```bash
-nimrobo screen user profile --json
+nimrobo voice user profile --json
 ```
 
 ---
@@ -93,7 +93,7 @@ nimrobo screen user profile --json
 List all projects.
 
 ```bash
-nimrobo screen projects list
+nimrobo voice projects list
 ```
 
 **Example output:**
@@ -111,12 +111,12 @@ proj_ghi789     Product Manager         45 min       2024-03-01
 Get detailed project information.
 
 ```bash
-nimrobo screen projects get <project-id>
+nimrobo voice projects get <project-id>
 ```
 
 **Example:**
 ```bash
-nimrobo screen projects get proj_abc123
+nimrobo voice projects get proj_abc123
 ```
 
 **Output:**
@@ -141,7 +141,7 @@ Create a new project.
 
 **Via CLI flags:**
 ```bash
-nimrobo screen projects create \
+nimrobo voice projects create \
   -n "Engineering Interview" \
   -p "You are a technical interviewer. Ask about system design..." \
   -d "Backend engineer screening" \
@@ -152,7 +152,7 @@ nimrobo screen projects create \
 
 **Via JSON file:**
 ```bash
-nimrobo screen projects create -f project.json
+nimrobo voice projects create -f project.json
 ```
 
 **project.json:**
@@ -178,7 +178,7 @@ nimrobo screen projects create -f project.json
 
 **Interactive mode:**
 ```bash
-nimrobo screen projects create
+nimrobo voice projects create
 # Prompts for name and prompt
 ```
 
@@ -190,14 +190,14 @@ Update an existing project.
 
 **Example - update name and time limit:**
 ```bash
-nimrobo screen projects update proj_abc123 \
+nimrobo voice projects update proj_abc123 \
   -n "Senior Backend Engineer Interview" \
   -t 45
 ```
 
 **Example - update via file:**
 ```bash
-nimrobo screen projects update proj_abc123 -f updates.json
+nimrobo voice projects update proj_abc123 -f updates.json
 ```
 
 ---
@@ -208,23 +208,23 @@ Set or view default project for convenience.
 
 **Set default:**
 ```bash
-nimrobo screen projects use proj_abc123
+nimrobo voice projects use proj_abc123
 ```
 
 **View current default:**
 ```bash
-nimrobo screen projects use
+nimrobo voice projects use
 ```
 
 **Clear default:**
 ```bash
-nimrobo screen projects use --clear
+nimrobo voice projects use --clear
 ```
 
 **Use default in other commands:**
 ```bash
-nimrobo screen links list -p default
-nimrobo screen links create -p default -l "Candidate A" -e 1_week
+nimrobo voice links list -p default
+nimrobo voice links create -p default -l "Candidate A" -e 1_week
 ```
 
 ---
@@ -237,13 +237,13 @@ List voice links.
 
 **List project links:**
 ```bash
-nimrobo screen links list -p proj_abc123
-nimrobo screen links list -p default
+nimrobo voice links list -p proj_abc123
+nimrobo voice links list -p default
 ```
 
 **List instant links:**
 ```bash
-nimrobo screen links list
+nimrobo voice links list
 ```
 
 **Example output:**
@@ -262,7 +262,7 @@ Create voice links.
 
 **Create project links:**
 ```bash
-nimrobo screen links create \
+nimrobo voice links create \
   -p proj_abc123 \
   -l "Alice,Bob,Charlie" \
   -e 1_week
@@ -277,7 +277,7 @@ https://app.nimroboai.com/link/ghi789
 
 **Create instant links (no project):**
 ```bash
-nimrobo screen links create \
+nimrobo voice links create \
   -l "User Research 1,User Research 2" \
   -e 1_day \
   --prompt "You are conducting user research about product features..." \
@@ -288,7 +288,7 @@ nimrobo screen links create \
 
 **Via JSON file (project links):**
 ```bash
-nimrobo screen links create -p proj_abc123 -f candidates.json
+nimrobo voice links create -p proj_abc123 -f candidates.json
 ```
 
 **candidates.json:**
@@ -301,7 +301,7 @@ nimrobo screen links create -p proj_abc123 -f candidates.json
 
 **Via JSON file (instant links):**
 ```bash
-nimrobo screen links create -f research.json
+nimrobo voice links create -f research.json
 ```
 
 **research.json:**
@@ -332,7 +332,7 @@ nimrobo screen links create -f research.json
 Cancel an active project link.
 
 ```bash
-nimrobo screen links cancel link_abc123 -p proj_xyz789
+nimrobo voice links cancel link_abc123 -p proj_xyz789
 ```
 
 **Note:** Only `active` project links can be cancelled. Instant links cannot be cancelled.
@@ -344,7 +344,7 @@ nimrobo screen links cancel link_abc123 -p proj_xyz789
 Update an instant voice link.
 
 ```bash
-nimrobo screen links update link_abc123 \
+nimrobo voice links update link_abc123 \
   -l "New Label" \
   -e 1_month \
   -t 20
@@ -352,7 +352,7 @@ nimrobo screen links update link_abc123 \
 
 **Via JSON file:**
 ```bash
-nimrobo screen links update link_abc123 -f update.json
+nimrobo voice links update link_abc123 -f update.json
 ```
 
 **Note:** Only `active` instant links can be updated.
@@ -369,12 +369,12 @@ Get session status.
 
 **Project session:**
 ```bash
-nimrobo screen sessions status sess_abc123 -t project -p proj_xyz789
+nimrobo voice sessions status sess_abc123 -t project -p proj_xyz789
 ```
 
 **Instant session:**
 ```bash
-nimrobo screen sessions status sess_abc123 -t instant
+nimrobo voice sessions status sess_abc123 -t instant
 ```
 
 **Example output:**
@@ -396,13 +396,13 @@ Completed At:   2024-03-20 10:45:00
 Get conversation transcript.
 
 ```bash
-nimrobo screen sessions transcript sess_abc123 -t project -p proj_xyz789
-nimrobo screen sessions transcript sess_abc123 -t instant
+nimrobo voice sessions transcript sess_abc123 -t project -p proj_xyz789
+nimrobo voice sessions transcript sess_abc123 -t instant
 ```
 
 **Example output (JSON):**
 ```bash
-nimrobo screen sessions transcript sess_abc123 -t instant --json
+nimrobo voice sessions transcript sess_abc123 -t instant --json
 ```
 
 ---
@@ -412,7 +412,7 @@ nimrobo screen sessions transcript sess_abc123 -t instant --json
 Get signed URL to download audio recording.
 
 ```bash
-nimrobo screen sessions audio sess_abc123 -t project -p proj_xyz789
+nimrobo voice sessions audio sess_abc123 -t project -p proj_xyz789
 ```
 
 **Output:**
@@ -428,7 +428,7 @@ https://storage.example.com/audio/sess_abc123.mp3?signature=...
 Get evaluation results.
 
 ```bash
-nimrobo screen sessions evaluation sess_abc123 -t project -p proj_xyz789
+nimrobo voice sessions evaluation sess_abc123 -t project -p proj_xyz789
 ```
 
 **Example output:**
@@ -450,12 +450,12 @@ Get or trigger summary generation.
 
 **Project session:**
 ```bash
-nimrobo screen sessions summary sess_abc123 -p proj_xyz789
+nimrobo voice sessions summary sess_abc123 -p proj_xyz789
 ```
 
 **Instant session:**
 ```bash
-nimrobo screen sessions summary sess_abc123 -i
+nimrobo voice sessions summary sess_abc123 -i
 ```
 
 **Behavior:**
@@ -469,8 +469,8 @@ nimrobo screen sessions summary sess_abc123 -i
 Force regeneration of summary.
 
 ```bash
-nimrobo screen sessions summary:regenerate sess_abc123 -p proj_xyz789
-nimrobo screen sessions summary:regenerate sess_abc123 -i
+nimrobo voice sessions summary:regenerate sess_abc123 -p proj_xyz789
+nimrobo voice sessions summary:regenerate sess_abc123 -i
 ```
 
 **Output:**

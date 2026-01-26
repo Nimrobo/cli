@@ -8,7 +8,7 @@ import { handleError } from '../../utils/errors';
 const SKILLS_TO_COPY = [
   'SKILL.md',
   'commands.md',
-  'screen-commands.md',
+  'voice-commands.md',
   'net-commands.md',
   'workflow.md',
 ];

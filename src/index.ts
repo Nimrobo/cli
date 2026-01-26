@@ -42,15 +42,15 @@ const packageJson = require('../package.json');
   registerStatusCommand(program);
   registerOnboardCommand(program);
 
-  // Screen commands (Voice Screening Platform)
-  const screenCommand = program
-    .command('screen')
+  // Voice commands (Voice Screening Platform)
+  const voiceCommand = program
+    .command('voice')
     .description('Voice screening platform commands');
 
-  registerUserCommands(screenCommand);
-  registerProjectsCommands(screenCommand);
-  registerLinksCommands(screenCommand);
-  registerSessionsCommands(screenCommand);
+  registerUserCommands(voiceCommand);
+  registerProjectsCommands(voiceCommand);
+  registerLinksCommands(voiceCommand);
+  registerSessionsCommands(voiceCommand);
 
   // Net commands (Matching Network)
   registerNetCommands(program);

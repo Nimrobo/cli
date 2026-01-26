@@ -3,38 +3,38 @@ import tabtab from 'tabtab';
 // Define the complete command tree for Nimrobo CLI
 const completionTree: Record<string, string[] | Record<string, string[]>> = {
   // Top-level commands
-  '': ['login', 'logout', 'status', 'screen', 'net', 'completion', 'install', '--json', '--help', '--version'],
+  '': ['login', 'logout', 'status', 'voice', 'net', 'completion', 'install', '--json', '--help', '--version'],
 
-  // Screen commands
-  'screen': ['user', 'projects', 'links', 'sessions'],
+  // Voice commands
+  'voice': ['user', 'projects', 'links', 'sessions'],
 
-  // Screen > user
-  'screen user': ['profile'],
-  'screen user profile': ['--json'],
+  // Voice > user
+  'voice user': ['profile'],
+  'voice user profile': ['--json'],
 
-  // Screen > projects
-  'screen projects': ['list', 'create', 'get', 'update', 'use'],
-  'screen projects list': ['--json'],
-  'screen projects create': ['--json', '--name', '--description', '--time-limit', '--system-prompt', '--evaluation-prompt'],
-  'screen projects get': ['--json'],
-  'screen projects update': ['--json', '--name', '--description', '--time-limit', '--system-prompt', '--evaluation-prompt'],
-  'screen projects use': ['--json'],
+  // Voice > projects
+  'voice projects': ['list', 'create', 'get', 'update', 'use'],
+  'voice projects list': ['--json'],
+  'voice projects create': ['--json', '--name', '--description', '--time-limit', '--system-prompt', '--evaluation-prompt'],
+  'voice projects get': ['--json'],
+  'voice projects update': ['--json', '--name', '--description', '--time-limit', '--system-prompt', '--evaluation-prompt'],
+  'voice projects use': ['--json'],
 
-  // Screen > links
-  'screen links': ['list', 'create', 'cancel', 'update'],
-  'screen links list': ['--json', '--project', '--status', '--limit', '--skip'],
-  'screen links create': ['--json', '--project', '--name', '--email', '--phone', '--max-uses', '--expires'],
-  'screen links cancel': ['--json'],
-  'screen links update': ['--json', '--name', '--max-uses', '--expires'],
+  // Voice > links
+  'voice links': ['list', 'create', 'cancel', 'update'],
+  'voice links list': ['--json', '--project', '--status', '--limit', '--skip'],
+  'voice links create': ['--json', '--project', '--name', '--email', '--phone', '--max-uses', '--expires'],
+  'voice links cancel': ['--json'],
+  'voice links update': ['--json', '--name', '--max-uses', '--expires'],
 
-  // Screen > sessions
-  'screen sessions': ['status', 'transcript', 'audio', 'evaluation', 'summary', 'summary-regenerate'],
-  'screen sessions status': ['--json'],
-  'screen sessions transcript': ['--json'],
-  'screen sessions audio': ['--json', '--output'],
-  'screen sessions evaluation': ['--json'],
-  'screen sessions summary': ['--json'],
-  'screen sessions summary-regenerate': ['--json'],
+  // Voice > sessions
+  'voice sessions': ['status', 'transcript', 'audio', 'evaluation', 'summary', 'summary-regenerate'],
+  'voice sessions status': ['--json'],
+  'voice sessions transcript': ['--json'],
+  'voice sessions audio': ['--json', '--output'],
+  'voice sessions evaluation': ['--json'],
+  'voice sessions summary': ['--json'],
+  'voice sessions summary-regenerate': ['--json'],
 
   // Net commands
   'net': ['my', 'users', 'orgs', 'posts', 'applications', 'channels', 'context'],

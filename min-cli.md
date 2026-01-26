@@ -8,31 +8,31 @@ Both command namespaces share the same authentication system.
 2. `nimrobo logout` - Logout from CLI
 3. `nimrobo status` - Show login status
 
-## Screen Commands (Voice Screening Platform)
+## Voice Commands (Voice Screening Platform)
 
 ### User
-4. `nimrobo screen user profile` - Get current user profile
+4. `nimrobo voice user profile` - Get current user profile
 
 ### Projects
-5. `nimrobo screen projects list` - List all projects
-6. `nimrobo screen projects get` - Get project details
-7. `nimrobo screen projects create` - Create new project
-8. `nimrobo screen projects update` - Update project
-9. `nimrobo screen projects use` - Set active project
+5. `nimrobo voice projects list` - List all projects
+6. `nimrobo voice projects get` - Get project details
+7. `nimrobo voice projects create` - Create new project
+8. `nimrobo voice projects update` - Update project
+9. `nimrobo voice projects use` - Set active project
 
 ### Links
-10. `nimrobo screen links list` - List screening links
-11. `nimrobo screen links create` - Create screening link
-12. `nimrobo screen links cancel` - Cancel active link
-13. `nimrobo screen links update` - Update link settings
+10. `nimrobo voice links list` - List screening links
+11. `nimrobo voice links create` - Create screening link
+12. `nimrobo voice links cancel` - Cancel active link
+13. `nimrobo voice links update` - Update link settings
 
 ### Sessions
-14. `nimrobo screen sessions status` - Get session status
-15. `nimrobo screen sessions transcript` - Get session transcript
-16. `nimrobo screen sessions audio` - Download session audio
-17. `nimrobo screen sessions evaluation` - Get session evaluation
-18. `nimrobo screen sessions summary` - Get session summary
-19. `nimrobo screen sessions summary-regenerate` - Regenerate session summary
+14. `nimrobo voice sessions status` - Get session status
+15. `nimrobo voice sessions transcript` - Get session transcript
+16. `nimrobo voice sessions audio` - Download session audio
+17. `nimrobo voice sessions evaluation` - Get session evaluation
+18. `nimrobo voice sessions summary` - Get session summary
+19. `nimrobo voice sessions summary-regenerate` - Regenerate session summary
 
 ---
 

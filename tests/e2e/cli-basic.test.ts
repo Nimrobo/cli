@@ -80,12 +80,12 @@ describe('CLI E2E Tests', () => {
 
       expect(result.exitCode).toBe(0);
       expect(result.stdout).toContain('nimrobo');
-      expect(result.stdout).toContain('screen');
+      expect(result.stdout).toContain('voice');
       expect(result.stdout).toContain('net');
     });
 
-    it('should display screen help', () => {
-      const result = runCli('screen --help');
+    it('should display voice help', () => {
+      const result = runCli('voice --help');
 
       expect(result.exitCode).toBe(0);
       expect(result.stdout).toContain('user');

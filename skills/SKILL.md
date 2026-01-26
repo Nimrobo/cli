@@ -11,7 +11,7 @@ This skill enables you to use the Nimrobo CLI for voice screening and matching n
 
 Nimrobo CLI provides two command platforms:
 
-1. **Screen Commands** (`nimrobo screen`) - Voice-first AI platform for running interviews, screening, and diagnostic conversations via shareable voice-links
+1. **Voice Commands** (`nimrobo voice`) - Voice-first AI platform for running interviews, screening, and diagnostic conversations via shareable voice-links
 2. **Net Commands** (`nimrobo net`) - Matching network for organizations, job posts, applications, and messaging
 
 Both platforms share the same authentication system.
@@ -67,23 +67,23 @@ This skill includes the following documentation files for detailed reference:
 | File | Description |
 |------|-------------|
 | `commands.md` | Quick reference table of all commands |
-| `screen-commands.md` | Detailed Screen platform commands with examples |
+| `voice-commands.md` | Detailed Voice platform commands with examples |
 | `net-commands.md` | Detailed Net platform commands with examples |
 | `workflow.md` | Common workflow patterns and examples |
 
 ## Common Workflows
 
-### Screen: Run an Interview
+### Voice: Run an Interview
 
 ```bash
 # Create project and generate interview links
-nimrobo screen projects create -f interview.json
-nimrobo screen projects use proj_abc123
-nimrobo screen links create -p default -l "Alice,Bob,Charlie" -e 1_week
+nimrobo voice projects create -f interview.json
+nimrobo voice projects use proj_abc123
+nimrobo voice links create -p default -l "Alice,Bob,Charlie" -e 1_week
 
 # After interviews, get results
-nimrobo screen sessions evaluation sess_xyz -t project -p default
-nimrobo screen sessions transcript sess_xyz -t project -p default --json
+nimrobo voice sessions evaluation sess_xyz -t project -p default
+nimrobo voice sessions transcript sess_xyz -t project -p default --json
 ```
 
 ### Net: Post a Job
@@ -128,7 +128,7 @@ nimrobo net my applications --status pending
 
 ```bash
 nimrobo --help              # List all commands
-nimrobo screen --help       # Screen platform help
+nimrobo voice --help        # Voice platform help
 nimrobo net --help          # Net platform help
 nimrobo <command> --help    # Help for specific command
 ```

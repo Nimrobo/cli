@@ -4,7 +4,7 @@
 
 Nimrobo CLI is a command-line tool for interacting with Nimrobo AI APIs. The CLI provides two command namespaces:
 
-1. **Screen Commands** (`nimrobo screen`) - Voice-first AI platform for running interviews, screening, and diagnostic conversations via shareable voice-links
+1. **Voice Commands** (`nimrobo voice`) - Voice-first AI platform for running interviews, screening, and diagnostic conversations via shareable voice-links
 2. **Net Commands** (`nimrobo net`) - Matching network for organizations, job posts, applications, and messaging
 
 Both command namespaces share the same authentication system.
@@ -72,7 +72,7 @@ nimrobo onboard --file onboard.json
 | Document | Description |
 |----------|-------------|
 | [commands.md](./commands.md) | Quick reference for all commands |
-| [screen-commands.md](./screen-commands.md) | Detailed Screen commands with examples |
+| [voice-commands.md](./voice-commands.md) | Detailed Voice commands with examples |
 | [net-commands.md](./net-commands.md) | Detailed Net commands with examples |
 | [workflow.md](./workflow.md) | Common workflow patterns |
 

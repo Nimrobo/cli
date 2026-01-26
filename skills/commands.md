@@ -4,7 +4,7 @@ Quick reference for all Nimrobo CLI commands. Both namespaces share authenticati
 
 ---
 
-## Screen Commands (Voice Screening Platform)
+## Voice Commands (Voice Screening Platform)
 
 ### Auth & User
 | # | Command | Description |
@@ -12,34 +12,34 @@ Quick reference for all Nimrobo CLI commands. Both namespaces share authenticati
 | 1 | `nimrobo login` | Login with API key |
 | 2 | `nimrobo logout` | Logout from CLI |
 | 3 | `nimrobo status` | Show login status |
-| 4 | `nimrobo screen user profile` | Get current user profile |
+| 4 | `nimrobo voice user profile` | Get current user profile |
 
 ### Projects
 | # | Command | Description |
 |---|---------|-------------|
-| 5 | `nimrobo screen projects list` | List all projects |
-| 6 | `nimrobo screen projects get <projectId>` | Get project details |
-| 7 | `nimrobo screen projects create` | Create new project |
-| 8 | `nimrobo screen projects update <projectId>` | Update project |
-| 9 | `nimrobo screen projects use [projectId]` | Set/view default project |
+| 5 | `nimrobo voice projects list` | List all projects |
+| 6 | `nimrobo voice projects get <projectId>` | Get project details |
+| 7 | `nimrobo voice projects create` | Create new project |
+| 8 | `nimrobo voice projects update <projectId>` | Update project |
+| 9 | `nimrobo voice projects use [projectId]` | Set/view default project |
 
 ### Links
 | # | Command | Description |
 |---|---------|-------------|
-| 10 | `nimrobo screen links list` | List voice links |
-| 11 | `nimrobo screen links create` | Create voice link(s) |
-| 12 | `nimrobo screen links cancel <linkId>` | Cancel project link |
-| 13 | `nimrobo screen links update <linkId>` | Update instant link |
+| 10 | `nimrobo voice links list` | List voice links |
+| 11 | `nimrobo voice links create` | Create voice link(s) |
+| 12 | `nimrobo voice links cancel <linkId>` | Cancel project link |
+| 13 | `nimrobo voice links update <linkId>` | Update instant link |
 
 ### Sessions
 | # | Command | Description |
 |---|---------|-------------|
-| 14 | `nimrobo screen sessions status <sessionId>` | Get session status |
-| 15 | `nimrobo screen sessions transcript <sessionId>` | Get transcript |
-| 16 | `nimrobo screen sessions audio <sessionId>` | Download audio URL |
-| 17 | `nimrobo screen sessions evaluation <sessionId>` | Get evaluation |
-| 18 | `nimrobo screen sessions summary <sessionId>` | Get/generate summary |
-| 19 | `nimrobo screen sessions summary:regenerate <sessionId>` | Regenerate summary |
+| 14 | `nimrobo voice sessions status <sessionId>` | Get session status |
+| 15 | `nimrobo voice sessions transcript <sessionId>` | Get transcript |
+| 16 | `nimrobo voice sessions audio <sessionId>` | Download audio URL |
+| 17 | `nimrobo voice sessions evaluation <sessionId>` | Get evaluation |
+| 18 | `nimrobo voice sessions summary <sessionId>` | Get/generate summary |
+| 19 | `nimrobo voice sessions summary:regenerate <sessionId>` | Regenerate summary |
 
 ---
 

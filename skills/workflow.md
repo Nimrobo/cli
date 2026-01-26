@@ -4,7 +4,7 @@ Common workflow patterns for the Nimrobo CLI.
 
 ---
 
-## 1. Interview Screening Workflow (Screen)
+## 1. Interview Screening Workflow (Voice)
 
 Set up and run a structured interview process.
 
@@ -13,33 +13,33 @@ Set up and run a structured interview process.
 nimrobo login
 
 # 2. Create interview project
-nimrobo screen projects create -f interview.json
+nimrobo voice projects create -f interview.json
 
 # 3. Set as default project
-nimrobo screen projects use proj_abc123
+nimrobo voice projects use proj_abc123
 
 # 4. Generate links for candidates
-nimrobo screen links create -p default -l "Alice,Bob,Charlie" -e 1_week
+nimrobo voice links create -p default -l "Alice,Bob,Charlie" -e 1_week
 
 # 5. (After interviews) Check session status
-nimrobo screen sessions status sess_xyz -t project -p default
+nimrobo voice sessions status sess_xyz -t project -p default
 
 # 6. Get evaluation results
-nimrobo screen sessions evaluation sess_xyz -t project -p default
+nimrobo voice sessions evaluation sess_xyz -t project -p default
 
 # 7. Get transcript
-nimrobo screen sessions transcript sess_xyz -t project -p default --json > transcript.json
+nimrobo voice sessions transcript sess_xyz -t project -p default --json > transcript.json
 ```
 
 ---
 
-## 2. Quick User Research (Screen)
+## 2. Quick User Research (Voice)
 
 Run instant voice sessions without creating a project.
 
 ```bash
 # Create instant links with embedded prompt
-nimrobo screen links create \
+nimrobo voice links create \
   -l "User1,User2,User3" \
   -e 1_day \
   --prompt "You are conducting user research about our mobile app..." \
@@ -47,9 +47,9 @@ nimrobo screen links create \
   -t 10
 
 # Check results
-nimrobo screen sessions status sess_abc -t instant
-nimrobo screen sessions summary sess_abc -i
-nimrobo screen sessions transcript sess_abc -t instant
+nimrobo voice sessions status sess_abc -t instant
+nimrobo voice sessions summary sess_abc -i
+nimrobo voice sessions transcript sess_abc -t instant
 ```
 
 ---
@@ -242,7 +242,7 @@ nimrobo net my summary
 
 ```bash
 # Create multiple links
-nimrobo screen links create -p default -l "A,B,C,D,E" -e 1_week
+nimrobo voice links create -p default -l "A,B,C,D,E" -e 1_week
 
 # Process multiple applications
 nimrobo net applications batch-action --action accept --ids "1,2,3"

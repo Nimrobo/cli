@@ -45,23 +45,23 @@ nimrobo onboard --generate-template
 nimrobo onboard --file onboard-template.json
 ```
 
-### Voice Screening Platform (`nimrobo screen`)
+### Voice Screening Platform (`nimrobo voice`)
 
 Manage voice-based candidate screening with AI-powered interviews.
 
 ```bash
 # Projects
-nimrobo screen projects list      # List all projects
-nimrobo screen projects create    # Create a new project
-nimrobo screen projects get <id>  # Get project details
+nimrobo voice projects list      # List all projects
+nimrobo voice projects create    # Create a new project
+nimrobo voice projects get <id>  # Get project details
 
 # Links
-nimrobo screen links list <project-id>   # List interview links
-nimrobo screen links create <project-id> # Create interview link
+nimrobo voice links list <project-id>   # List interview links
+nimrobo voice links create <project-id> # Create interview link
 
 # Sessions
-nimrobo screen sessions list <project-id>  # List interview sessions
-nimrobo screen sessions get <session-id>   # Get session details
+nimrobo voice sessions list <project-id>  # List interview sessions
+nimrobo voice sessions get <session-id>   # Get session details
 ```
 
 ### Matching Network (`nimrobo net`)
@@ -106,7 +106,7 @@ The CLI stores configuration in `~/.nimrobo/`:
 All commands support `--json` flag for scripting:
 
 ```bash
-nimrobo screen projects list --json | jq '.projects[0].name'
+nimrobo voice projects list --json | jq '.projects[0].name'
 nimrobo net posts search --query "engineer" --json
 ```
 
