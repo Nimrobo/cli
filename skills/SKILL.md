@@ -1,3 +1,8 @@
+---
+name: Nimrobo CLI
+description: This skill enables you to use the Nimrobo CLI for voice screening and matching network operations.
+---
+
 # Nimrobo CLI Skill
 
 This skill enables you to use the Nimrobo CLI for voice screening and matching network operations.

@@ -26,7 +26,6 @@ tsconfig.json
 node_modules/
 
 # Documentation (internal)
-docs/
 
 # Plan files
 *.plan.md

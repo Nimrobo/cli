@@ -4,9 +4,9 @@ import * as path from 'path';
 import { success, error } from '../../utils/output';
 import { handleError } from '../../utils/errors';
 
-// List of documentation files to copy
-const DOCS_TO_COPY = [
-  'skill.md',
+// List of skill files to copy
+const SKILLS_TO_COPY = [
+  'SKILL.md',
   'commands.md',
   'screen-commands.md',
   'net-commands.md',
@@ -14,11 +14,11 @@ const DOCS_TO_COPY = [
 ];
 
 /**
- * Get the path to the docs directory in the installed package
+ * Get the path to the skills directory in the installed package
  */
-function getDocsDir(): string {
-  // When installed globally or locally, docs are at package root
-  return path.resolve(__dirname, '../../../docs');
+function getSkillsDir(): string {
+  // When installed globally or locally, skills are at package root
+  return path.resolve(__dirname, '../../../skills');
 }
 
 /**
@@ -32,21 +32,21 @@ export function registerInstallSkillsCommand(installCommand: Command): void {
       try {
         const cwd = process.cwd();
         const targetDir = path.join(cwd, '.claude', 'skills', 'nimrobo');
-        const docsDir = getDocsDir();
+        const skillsDir = getSkillsDir();
 
-        // Check if docs directory exists
-        if (!fs.existsSync(docsDir)) {
-          error(`Documentation directory not found: ${docsDir}`);
+        // Check if skills directory exists
+        if (!fs.existsSync(skillsDir)) {
+          error(`Skills directory not found: ${skillsDir}`);
           process.exit(1);
         }
 
         // Create target directory
         fs.mkdirSync(targetDir, { recursive: true });
 
-        // Copy each documentation file
+        // Copy each skill file
         let copiedCount = 0;
-        for (const filename of DOCS_TO_COPY) {
-          const sourcePath = path.join(docsDir, filename);
+        for (const filename of SKILLS_TO_COPY) {
+          const sourcePath = path.join(skillsDir, filename);
           const targetPath = path.join(targetDir, filename);
 
           if (fs.existsSync(sourcePath)) {
@@ -59,7 +59,7 @@ export function registerInstallSkillsCommand(installCommand: Command): void {
 
         success(`Installed ${copiedCount} skill files to ${targetDir}`);
         console.log('\nFiles installed:');
-        for (const filename of DOCS_TO_COPY) {
+        for (const filename of SKILLS_TO_COPY) {
           const targetPath = path.join(targetDir, filename);
           if (fs.existsSync(targetPath)) {
             console.log(`  ✓ ${filename}`);

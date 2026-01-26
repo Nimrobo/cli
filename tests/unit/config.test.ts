@@ -64,7 +64,7 @@ describe('config.ts', () => {
       const config = loadConfig();
       
       expect(config.API_BASE_URL).toBe('https://app.nimroboai.com/api');
-      expect(config.NET_API_BASE_URL).toBe('http://localhost:3000');
+      expect(config.NET_API_BASE_URL).toBe('https://net-315108406092.asia-south1.run.app/');
       expect(config.API_KEY).toBeNull();
       expect(config.defaultProject).toBeNull();
       expect(config.context).toEqual({
