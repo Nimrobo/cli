@@ -56,7 +56,7 @@ nimrobo voice sessions transcript sess_abc -t instant
 
 ## 3. Job Posting Workflow (Net)
 
-Create and manage job posts as an organization.
+Create and manage posts as an organization.
 
 ```bash
 # 1. Login (shared auth)
@@ -67,14 +67,13 @@ nimrobo net orgs create --name "Acme Corp" --use
 # OR
 nimrobo net orgs use org_abc123
 
-# 3. Create job post
+# 3. Create post
 nimrobo net posts create \
   --title "Senior Engineer" \
+  --short-content "We're hiring a senior engineer for our backend team." \
+  --long-content-file ./job-description.md \
   --expires "2024-06-01" \
   --org current \
-  --compensation salary \
-  --salary 150000 \
-  --remote remote \
   --use
 
 # 4. View incoming applications
@@ -104,29 +103,30 @@ nimrobo login
 nimrobo net my update --name "John Doe" --city "SF" --bio "Senior developer"
 
 # 2. Search for jobs
-nimrobo net posts list \
-  --keyword "senior engineer" \
-  --remote remote \
-  --salary-min 120000 \
-  --experience-max 10
+nimrobo net posts list --query "senior engineer"
 
-# 3. View job details
+# 3. Filter by job attributes (backend-extracted fields)
+nimrobo net posts list \
+  --query "senior engineer" \
+  --filter '{"remote": "remote", "salary_min": 120000}'
+
+# 4. View job details
 nimrobo net posts get post_xyz789 --use
 
-# 4. Apply with cover note
+# 5. Apply with cover note
 nimrobo net posts apply current \
   --cover-note "I'm excited about this role..." \
   --expected-salary 140000
 
-# 5. Track applications
+# 6. Track applications
 nimrobo net my applications
 nimrobo net my applications --status accepted
 
-# 6. Check messages from employers
+# 7. Check messages from employers
 nimrobo net my summary
 nimrobo net channels messages ch_abc123
 
-# 7. Respond to messages
+# 8. Respond to messages
 nimrobo net channels send ch_abc123 --message "Thanks! I'm available tomorrow."
 ```
 

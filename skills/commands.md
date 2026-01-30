@@ -96,7 +96,7 @@ Quick reference for all Nimrobo CLI commands. Both namespaces share authenticati
 ### Posts
 | # | Command | Description |
 |---|---------|-------------|
-| 33 | `nimrobo net posts create` | Create job post |
+| 33 | `nimrobo net posts create` | Create post |
 | 34 | `nimrobo net posts list` | List/search posts |
 | 35 | `nimrobo net posts get [postId]` | Get post details |
 | 36 | `nimrobo net posts update [postId]` | Update post |
@@ -181,9 +181,9 @@ The `has_more` field indicates if more results exist.
 --status active|closed|pending|accepted|rejected|withdrawn
 ```
 
-**Keyword search:**
+**Search query:**
 ```bash
---keyword "search term"
+--query "search term"
 ```
 
 **Sorting:**
@@ -195,38 +195,31 @@ The `has_more` field indicates if more results exist.
 ### Posts Filtering
 
 ```bash
-# By job attributes
-nimrobo net posts list --compensation salary --employment full_time
-nimrobo net posts list --remote remote --education bachelors
+# Search by query
+nimrobo net posts list --query "senior engineer"
 
-# By salary range (USD)
-nimrobo net posts list --salary-min 80000 --salary-max 150000
+# By status
+nimrobo net posts list --status active
 
-# By hourly rate
-nimrobo net posts list --hourly-min 50 --hourly-max 100
-
-# By experience
-nimrobo net posts list --experience-min 3 --experience-max 8
-
-# By skills
-nimrobo net posts list --skills "typescript,react,node"
-
-# By location
-nimrobo net posts list --city "San Francisco" --country "USA"
-
-# Urgent only
-nimrobo net posts list --urgent
+# By organization
+nimrobo net posts list --org org_abc123
 
 # Include posts already applied to
 nimrobo net posts list --include-applied
 
-# Combined
+# Using generic filter for job-specific fields (backend-extracted)
+nimrobo net posts list --filter '{"compensation_type": "salary"}'
+nimrobo net posts list --filter '{"remote": "remote"}'
+nimrobo net posts list --filter '{"salary_min": 100000, "salary_max": 200000}'
+nimrobo net posts list --filter '{"experience_min": 3}'
+nimrobo net posts list --filter '{"skills": ["typescript", "react"]}'
+nimrobo net posts list --filter '{"location_city": "San Francisco"}'
+
+# Combined search with filter
 nimrobo net posts list \
-  --keyword "senior engineer" \
-  --remote remote \
-  --salary-min 100000 \
-  --experience-min 5 \
-  --sort salary_in_usd \
+  --query "senior engineer" \
+  --filter '{"remote": "remote", "salary_min": 100000}' \
+  --sort created_at \
   --order desc
 ```
 
@@ -263,26 +256,29 @@ nimrobo net channels list --status active --application app_123 --post post_456
 
 ## Filter Values Reference
 
-### Compensation Types
-`salary`, `hourly`, `equity`, `unpaid`
+### Post Filter Keys (for `--filter` JSON)
 
-### Employment Types
-`full_time`, `part_time`, `contract`, `internship`, `freelance`
+When filtering posts, you can use these keys in the JSON filter object:
 
-### Remote Types
-`remote`, `hybrid`, `onsite`
+| Key | Values | Example |
+|-----|--------|---------|
+| `compensation_type` | `salary`, `hourly`, `equity`, `unpaid` | `{"compensation_type": "salary"}` |
+| `employment_type` | `full_time`, `part_time`, `contract`, `internship`, `freelance` | `{"employment_type": "full_time"}` |
+| `remote` | `remote`, `hybrid`, `onsite` | `{"remote": "remote"}` |
+| `education_level` | `high_school`, `bachelors`, `masters`, `phd`, `any` | `{"education_level": "bachelors"}` |
+| `salary_min` / `salary_max` | number (USD) | `{"salary_min": 100000}` |
+| `hourly_rate_min` / `hourly_rate_max` | number (USD) | `{"hourly_rate_min": 50}` |
+| `experience_min` / `experience_max` | number (years) | `{"experience_min": 3}` |
+| `skills` | array of strings | `{"skills": ["react", "node"]}` |
+| `location_city` | string | `{"location_city": "NYC"}` |
+| `location_country` | string | `{"location_country": "USA"}` |
+| `urgent` | boolean | `{"urgent": true}` |
 
-### Education Levels
-`high_school`, `bachelors`, `masters`, `phd`, `any`
+### Status Values
 
-### Application Status
-`pending`, `accepted`, `rejected`, `withdrawn`
-
-### Post Status
-`active`, `closed`
-
-### Organization Status
-`active`, `deleted`
-
-### Channel Status
-`active`, `archived`
+| Entity | Statuses |
+|--------|----------|
+| Application | `pending`, `accepted`, `rejected`, `withdrawn` |
+| Post | `active`, `closed` |
+| Organization | `active`, `deleted` |
+| Channel | `active`, `archived` |

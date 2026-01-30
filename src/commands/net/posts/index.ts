@@ -20,7 +20,7 @@ import {
   checkMyApplication,
   PostSearchParams,
 } from '../../../api/net/posts';
-import { PostData, ApplicationData } from '../../../types';
+import { ApplicationData } from '../../../types';
 
 export function registerPostsCommands(program: Command): void {
   const postsCommand = program
@@ -30,27 +30,16 @@ export function registerPostsCommands(program: Command): void {
   // net posts create
   postsCommand
     .command('create')
-    .description('Create a new job post')
+    .description('Create a new post')
     .option('-f, --file <path>', 'JSON file with post data')
     .option('--stdin', 'Read JSON input from stdin')
-    .option('--content-file <path>', 'Read job description from file')
-    .option('--title <title>', 'Job title')
+    .option('--title <title>', 'Post title (required)')
+    .option('--short-content <content>', 'Short description')
+    .option('--short-content-file <path>', 'Read short content from file')
+    .option('--long-content <content>', 'Long-form content')
+    .option('--long-content-file <path>', 'Read long content from file')
     .option('--expires <date>', 'Expiration date (ISO format)')
     .option('--org <orgId>', 'Organization ID (use "current" for stored context)')
-    .option('--compensation <type>', 'Compensation type (salary, hourly, equity, unpaid)')
-    .option('--employment <type>', 'Employment type (full_time, part_time, contract, internship, freelance)')
-    .option('--remote <type>', 'Remote type (remote, hybrid, onsite)')
-    .option('--education <level>', 'Education level (high_school, bachelors, masters, phd, any)')
-    .option('--salary <amount>', 'Salary amount')
-    .option('--salary-currency <code>', 'Salary currency (e.g., USD)', 'USD')
-    .option('--hourly-rate <amount>', 'Hourly rate')
-    .option('--hourly-currency <code>', 'Hourly rate currency', 'USD')
-    .option('--experience <years>', 'Minimum years of experience')
-    .option('--skills <skills>', 'Required skills (comma-separated)')
-    .option('--city <city>', 'Job location city')
-    .option('--country <country>', 'Job location country')
-    .option('--urgent', 'Mark as urgent')
-    .option('--content <markdown>', 'Job description (markdown)')
     .option('--use', 'Set as current post context after creation')
     .action(async (options) => {
       try {
@@ -67,58 +56,25 @@ export function registerPostsCommands(program: Command): void {
           validateNetPostInput(inputData, true);
         }
 
-        // Build data from JSON input and CLI flags (CLI flags override JSON)
-        const data: PostData = {
-          title: options.title || inputData.title as string,
-        };
-
-        const compensation = options.compensation || inputData.compensation;
-        const employment = options.employment || inputData.employment;
-        const remote = options.remote || inputData.remote;
-        const education = options.education || inputData.education;
-        const salary = options.salary ? parseFloat(options.salary) : inputData.salary as number | undefined;
-        const salaryCurrency = options.salaryCurrency || inputData.salary_currency || 'USD';
-        const hourlyRate = options.hourlyRate ? parseFloat(options.hourlyRate) : inputData.hourly_rate as number | undefined;
-        const hourlyCurrency = options.hourlyCurrency || inputData.hourly_rate_currency || 'USD';
-        const experience = options.experience ? parseInt(options.experience) : inputData.experience as number | undefined;
-        const skills = options.skills
-          ? options.skills.split(',').map((s: string) => s.trim())
-          : inputData.skills as string[] | undefined;
-        const city = options.city || inputData.city;
-        const country = options.country || inputData.country;
-        const urgent = options.urgent || inputData.urgent;
+        // Build input from JSON input and CLI flags (CLI flags override JSON)
+        const title = options.title || inputData.title as string;
         const expires = options.expires || inputData.expires;
         const org = options.org || inputData.org;
 
-        if (compensation) data.compensation_type = compensation as PostData['compensation_type'];
-        if (employment) data.employment_type = employment as PostData['employment_type'];
-        if (remote) data.remote = remote as PostData['remote'];
-        if (education) data.education_level = education as PostData['education_level'];
-        if (salary) {
-          data.salary = salary;
-          data.salary_currency = salaryCurrency as string;
+        // Handle short_content: CLI flag > file > JSON input
+        let shortContent = options.shortContent || inputData.short_content as string | undefined;
+        if (options.shortContentFile) {
+          shortContent = readContentFile(options.shortContentFile);
         }
-        if (hourlyRate) {
-          data.hourly_rate = hourlyRate;
-          data.hourly_rate_currency = hourlyCurrency as string;
-        }
-        if (experience) data.min_years_experience = experience;
-        if (skills) data.required_skills = skills;
-        if (city || country) {
-          data.location = {};
-          if (city) data.location.city = city as string;
-          if (country) data.location.country = country as string;
-        }
-        if (urgent) data.urgent = true;
 
-        // Handle content: CLI flag > content-file > JSON input
-        let contentMd = options.content || inputData.content_md as string | undefined;
-        if (options.contentFile) {
-          contentMd = readContentFile(options.contentFile);
+        // Handle long_content: CLI flag > file > JSON input
+        let longContent = options.longContent || inputData.long_content as string | undefined;
+        if (options.longContentFile) {
+          longContent = readContentFile(options.longContentFile);
         }
 
         // Validate required fields
-        if (!data.title) {
+        if (!title) {
           throw new Error('Title is required. Provide via --title or in JSON input.');
         }
         if (!expires) {
@@ -131,9 +87,9 @@ export function registerPostsCommands(program: Command): void {
         }
 
         const post = await createPost({
-          post_type: 'job',
-          data,
-          content_md: contentMd,
+          title,
+          short_content: shortContent,
+          long_content: longContent,
           expires_at: expires as string,
           org_id: orgId || undefined,
         });
@@ -145,11 +101,11 @@ export function registerPostsCommands(program: Command): void {
         if (isJsonOutput()) {
           output(post);
         } else {
-          success(`Post created: ${post.data?.title || post.id}`);
+          success(`Post created: ${post.title || post.id}`);
           console.log();
           printKeyValue({
             'ID': post.id,
-            'Title': post.data?.title,
+            'Title': post.title,
             'Status': post.status,
             'Expires': post.expires_at,
           });
@@ -166,28 +122,15 @@ export function registerPostsCommands(program: Command): void {
   // net posts list
   postsCommand
     .command('list')
-    .description('List job posts')
-    .option('--keyword <keyword>', 'Search keyword')
+    .description('List posts')
+    .option('--query <query>', 'Search query (text search)')
+    .option('--filter <json>', 'Filter as JSON string (e.g., \'{"key": "value"}\')')
     .option('--status <status>', 'Filter by status (active, closed)')
     .option('--org <orgId>', 'Filter by organization')
-    .option('--compensation <type>', 'Filter by compensation type')
-    .option('--employment <type>', 'Filter by employment type')
-    .option('--remote <type>', 'Filter by remote type')
-    .option('--education <level>', 'Filter by education level')
-    .option('--salary-min <amount>', 'Minimum salary (USD)')
-    .option('--salary-max <amount>', 'Maximum salary (USD)')
-    .option('--hourly-min <amount>', 'Minimum hourly rate (USD)')
-    .option('--hourly-max <amount>', 'Maximum hourly rate (USD)')
-    .option('--experience-min <years>', 'Minimum years experience')
-    .option('--experience-max <years>', 'Maximum years experience')
-    .option('--skills <skills>', 'Required skills (comma-separated)')
-    .option('--city <city>', 'Filter by city')
-    .option('--country <country>', 'Filter by country')
-    .option('--urgent', 'Filter urgent posts only')
     .option('--include-applied', 'Include posts you already applied to')
     .option('--limit <limit>', 'Number of results', '20')
     .option('--skip <skip>', 'Number of results to skip', '0')
-    .option('--sort <field>', 'Sort field (created_at, expires_at, salary_in_usd)')
+    .option('--sort <field>', 'Sort field (created_at, expires_at)')
     .option('--order <order>', 'Sort order (asc, desc)', 'desc')
     .action(async (options) => {
       try {
@@ -200,23 +143,16 @@ export function registerPostsCommands(program: Command): void {
           exclude_applied: !options.includeApplied,
         };
 
-        if (options.keyword) params.keyword = options.keyword;
+        if (options.query) params.query = options.query;
         if (options.status) params.status = options.status;
         if (options.org) params.org_id = resolveId(options.org, 'org') || undefined;
-        if (options.compensation) params.compensation_type = options.compensation;
-        if (options.employment) params.employment_type = options.employment;
-        if (options.remote) params.remote = options.remote;
-        if (options.education) params.education_level = options.education;
-        if (options.salaryMin) params.salary_min = parseFloat(options.salaryMin);
-        if (options.salaryMax) params.salary_max = parseFloat(options.salaryMax);
-        if (options.hourlyMin) params.hourly_rate_min = parseFloat(options.hourlyMin);
-        if (options.hourlyMax) params.hourly_rate_max = parseFloat(options.hourlyMax);
-        if (options.experienceMin) params.experience_min = parseInt(options.experienceMin);
-        if (options.experienceMax) params.experience_max = parseInt(options.experienceMax);
-        if (options.skills) params.skills = options.skills;
-        if (options.city) params.location_city = options.city;
-        if (options.country) params.location_country = options.country;
-        if (options.urgent) params.urgent = true;
+        if (options.filter) {
+          try {
+            params.filter = JSON.parse(options.filter);
+          } catch {
+            throw new Error('Invalid JSON for --filter option');
+          }
+        }
         if (options.sort) params.sort_field = options.sort;
         if (options.order) params.sort_order = options.order;
 
@@ -236,7 +172,7 @@ export function registerPostsCommands(program: Command): void {
             ['ID', 'Title', 'Org', 'Status', 'Applications', 'Expires'],
             result.data.map(post => [
               post.id,
-              (post.data?.title || '(untitled)').substring(0, 30),
+              (post.title || '(untitled)').substring(0, 30),
               post.org_name || '',
               post.status,
               String(post.application_count || 0),
@@ -277,29 +213,22 @@ export function registerPostsCommands(program: Command): void {
           console.log();
           printKeyValue({
             'ID': post.id,
-            'Title': post.data?.title,
-            'Type': post.post_type,
+            'Title': post.title,
             'Status': post.status,
             'Organization': post.org_name || post.org_id,
-            'Compensation': post.data?.compensation_type,
-            'Employment': post.data?.employment_type,
-            'Remote': post.data?.remote,
-            'Salary': post.data?.salary ? `${post.data.salary} ${post.data.salary_currency}` : null,
-            'Hourly': post.data?.hourly_rate ? `${post.data.hourly_rate} ${post.data.hourly_rate_currency}` : null,
-            'Experience': post.data?.min_years_experience ? `${post.data.min_years_experience}+ years` : null,
-            'Skills': post.data?.required_skills?.join(', '),
-            'Location': post.data?.location
-              ? `${post.data.location.city || ''}${post.data.location.city && post.data.location.country ? ', ' : ''}${post.data.location.country || ''}`
-              : null,
-            'Urgent': post.data?.urgent,
             'Applications': post.application_count,
             'Expires': post.expires_at,
             'Created': post.created_at,
           });
-          if (post.content_md) {
+          if (post.short_content) {
             console.log();
-            console.log('Description:');
-            console.log(post.content_md);
+            console.log('Short content:');
+            console.log(post.short_content);
+          }
+          if (post.long_content) {
+            console.log();
+            console.log('Long content:');
+            console.log(post.long_content);
           }
           if (options.use) {
             console.log();
@@ -317,19 +246,12 @@ export function registerPostsCommands(program: Command): void {
     .description('Update a post (use "current" for stored context)')
     .option('-f, --file <path>', 'JSON file with update data')
     .option('--stdin', 'Read JSON input from stdin')
-    .option('--content-file <path>', 'Read description from file')
+    .option('--title <title>', 'Post title')
+    .option('--short-content <content>', 'Short description')
+    .option('--short-content-file <path>', 'Read short content from file')
+    .option('--long-content <content>', 'Long-form content')
+    .option('--long-content-file <path>', 'Read long content from file')
     .option('--expires <date>', 'New expiration date')
-    .option('--content <markdown>', 'Updated description')
-    .option('--title <title>', 'Job title (only before applications)')
-    .option('--compensation <type>', 'Compensation type (only before applications)')
-    .option('--employment <type>', 'Employment type (only before applications)')
-    .option('--remote <type>', 'Remote type (only before applications)')
-    .option('--salary <amount>', 'Salary amount (only before applications)')
-    .option('--hourly-rate <amount>', 'Hourly rate (only before applications)')
-    .option('--experience <years>', 'Min experience (only before applications)')
-    .option('--skills <skills>', 'Required skills (only before applications)')
-    .option('--city <city>', 'Location city (only before applications)')
-    .option('--country <country>', 'Location country (only before applications)')
     .action(async (postId, options) => {
       try {
         const apiKey = getApiKey();
@@ -351,54 +273,32 @@ export function registerPostsCommands(program: Command): void {
         }
 
         const updates: {
+          title?: string;
+          short_content?: string;
+          long_content?: string;
           expires_at?: string;
-          content_md?: string;
-          data?: PostData;
         } = {};
 
         // Merge JSON input with CLI flags (CLI overrides JSON)
+        const title = options.title || inputData.title;
+        if (title) updates.title = title as string;
+
         const expires = options.expires || inputData.expires;
         if (expires) updates.expires_at = expires as string;
 
-        // Handle content: CLI flag > content-file > JSON input
-        let contentMd = options.content || inputData.content_md as string | undefined;
-        if (options.contentFile) {
-          contentMd = readContentFile(options.contentFile);
+        // Handle short_content: CLI flag > file > JSON input
+        let shortContent = options.shortContent || inputData.short_content as string | undefined;
+        if (options.shortContentFile) {
+          shortContent = readContentFile(options.shortContentFile);
         }
-        if (contentMd) updates.content_md = contentMd;
+        if (shortContent) updates.short_content = shortContent;
 
-        // Data updates (only work before applications)
-        const dataUpdates: PostData = {};
-        const title = options.title || inputData.title;
-        const compensation = options.compensation || inputData.compensation;
-        const employment = options.employment || inputData.employment;
-        const remote = options.remote || inputData.remote;
-        const salary = options.salary ? parseFloat(options.salary) : inputData.salary as number | undefined;
-        const hourlyRate = options.hourlyRate ? parseFloat(options.hourlyRate) : inputData.hourly_rate as number | undefined;
-        const experience = options.experience ? parseInt(options.experience) : inputData.experience as number | undefined;
-        const skills = options.skills
-          ? options.skills.split(',').map((s: string) => s.trim())
-          : inputData.skills as string[] | undefined;
-        const city = options.city || inputData.city;
-        const country = options.country || inputData.country;
-
-        if (title) dataUpdates.title = title as string;
-        if (compensation) dataUpdates.compensation_type = compensation as PostData['compensation_type'];
-        if (employment) dataUpdates.employment_type = employment as PostData['employment_type'];
-        if (remote) dataUpdates.remote = remote as PostData['remote'];
-        if (salary) dataUpdates.salary = salary;
-        if (hourlyRate) dataUpdates.hourly_rate = hourlyRate;
-        if (experience) dataUpdates.min_years_experience = experience;
-        if (skills) dataUpdates.required_skills = skills;
-        if (city || country) {
-          dataUpdates.location = {};
-          if (city) dataUpdates.location.city = city as string;
-          if (country) dataUpdates.location.country = country as string;
+        // Handle long_content: CLI flag > file > JSON input
+        let longContent = options.longContent || inputData.long_content as string | undefined;
+        if (options.longContentFile) {
+          longContent = readContentFile(options.longContentFile);
         }
-
-        if (Object.keys(dataUpdates).length > 0) {
-          updates.data = dataUpdates;
-        }
+        if (longContent) updates.long_content = longContent;
 
         if (Object.keys(updates).length === 0) {
           throw new Error('At least one update option is required');
@@ -413,7 +313,7 @@ export function registerPostsCommands(program: Command): void {
           console.log();
           printKeyValue({
             'ID': post.id,
-            'Title': post.data?.title,
+            'Title': post.title,
             'Status': post.status,
             'Expires': post.expires_at,
           });
@@ -647,9 +547,9 @@ export function registerPostsCommands(program: Command): void {
         setContext('post', post.id);
 
         if (isJsonOutput()) {
-          output({ success: true, post_id: post.id, post_title: post.data?.title });
+          output({ success: true, post_id: post.id, post_title: post.title });
         } else {
-          success(`Set current post to: ${post.data?.title || post.id}`);
+          success(`Set current post to: ${post.title || post.id}`);
         }
       } catch (err) {
         handleError(err);

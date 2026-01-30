@@ -1,8 +1,6 @@
 import { getNetApiClient, resetNetApiClient } from './client';
 import {
   NetPost,
-  PostData,
-  PostType,
   NetApplication,
   ApplicationData,
   NetApiResponse,
@@ -10,55 +8,31 @@ import {
 } from '../../types';
 
 export interface PostSearchParams {
-  // Basic filters
-  post_type?: PostType;
-  status?: string;
-  org_id?: string;
-  // Job-specific filters
-  compensation_type?: string;
-  employment_type?: string;
-  remote?: string;
-  education_level?: string;
-  // Range filters
-  salary_min?: number;
-  salary_max?: number;
-  hourly_rate_min?: number;
-  hourly_rate_max?: number;
-  experience_min?: number;
-  experience_max?: number;
-  // Array filters (comma-separated)
-  skills?: string;
-  // Location filters
-  location_country?: string;
-  location_city?: string;
-  // Boolean filters
-  urgent?: boolean;
-  // Date filters
-  expires_after?: string;
-  expires_before?: string;
-  // Search
-  keyword?: string;
-  sort_field?: string;
-  sort_order?: 'asc' | 'desc';
-  // Pagination
   limit?: number;
   skip?: number;
-  // Exclude already applied
+  status?: string;
+  org_id?: string;
+  expires_after?: string;
+  expires_before?: string;
+  query?: string;
+  filter?: Record<string, unknown>;
+  sort_field?: string;
+  sort_order?: 'asc' | 'desc';
   exclude_applied?: boolean;
 }
 
 export interface CreatePostInput {
-  post_type: PostType;
-  data: PostData;
-  content_md?: string;
+  title: string;
+  short_content?: string;
+  long_content?: string;
   expires_at: string;
   org_id?: string;
 }
 
 export interface UpdatePostInput {
-  post_type?: PostType;
-  data?: PostData;
-  content_md?: string;
+  title?: string;
+  short_content?: string;
+  long_content?: string;
   expires_at?: string;
   org_id?: string | null;
 }

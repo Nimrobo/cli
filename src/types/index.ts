@@ -93,33 +93,7 @@ export interface OrgJoinRequest {
 }
 
 // Net Post types
-export type PostType = 'job';
 export type PostStatus = 'active' | 'closed';
-export type CompensationType = 'salary' | 'hourly' | 'equity' | 'unpaid';
-export type EmploymentType = 'full_time' | 'part_time' | 'contract' | 'internship' | 'freelance';
-export type RemoteType = 'remote' | 'hybrid' | 'onsite';
-export type EducationLevel = 'high_school' | 'bachelors' | 'masters' | 'phd' | 'any';
-
-export interface PostData {
-  title?: string;
-  compensation_type?: CompensationType;
-  employment_type?: EmploymentType;
-  remote?: RemoteType;
-  education_level?: EducationLevel;
-  salary?: number;
-  salary_currency?: string;
-  salary_in_usd?: number;
-  hourly_rate?: number;
-  hourly_rate_currency?: string;
-  hourly_rate_in_usd?: number;
-  min_years_experience?: number;
-  required_skills?: string[];
-  location?: {
-    city?: string;
-    country?: string;
-  };
-  urgent?: boolean;
-}
 
 export interface NetPost {
   id: string;
@@ -127,9 +101,10 @@ export interface NetPost {
   org_id: string | null;
   org_name?: string;
   org_status?: OrgStatus;
-  post_type: PostType;
-  data: PostData | null;
-  content_md?: string;
+  title: string;
+  short_content?: string;
+  long_content?: string;
+  data: Record<string, unknown> | null;  // Backend-populated via extraction
   expires_at: string;
   status: PostStatus;
   application_count?: number;
@@ -150,7 +125,6 @@ export interface ApplicationData {
 export interface NetApplication {
   id: string;
   post_id: string;
-  post_type?: PostType;
   post_title?: string;
   post_status?: PostStatus;
   applicant_id: string;

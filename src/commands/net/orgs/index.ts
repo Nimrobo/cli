@@ -347,11 +347,10 @@ export function registerOrgsCommands(program: Command): void {
           success(`Organization posts (${result.data.length}${result.pagination.has_more ? '+' : ''}):`);
           console.log();
           printTable(
-            ['ID', 'Title', 'Type', 'Status', 'Applications'],
+            ['ID', 'Title', 'Status', 'Applications'],
             result.data.map(post => [
               post.id,
-              post.data?.title || '(untitled)',
-              post.post_type,
+              post.title || '(untitled)',
               post.status,
               String(post.application_count || 0),
             ])

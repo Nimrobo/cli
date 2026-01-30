@@ -89,9 +89,9 @@ nimrobo voice sessions transcript sess_xyz -t project -p default --json
 ### Net: Post a Job
 
 ```bash
-# Create org and job post
+# Create org and post
 nimrobo net orgs create --name "Acme Corp" --use
-nimrobo net posts create --title "Senior Engineer" --expires "2024-06-01" --org current --use
+nimrobo net posts create --title "Senior Engineer" --short-content "Join our team!" --expires "2024-06-01" --org current --use
 
 # Review applications
 nimrobo net posts applications current --status pending
@@ -102,7 +102,7 @@ nimrobo net applications accept app_123
 
 ```bash
 # Search and apply
-nimrobo net posts list --keyword "engineer" --remote remote --salary-min 100000
+nimrobo net posts list --query "engineer" --filter '{"remote": "remote", "salary_min": 100000}'
 nimrobo net posts apply post_xyz --cover-note "I'm excited about this role..."
 
 # Track applications

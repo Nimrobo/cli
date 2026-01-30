@@ -208,11 +208,6 @@ function validateEvaluator(evaluator: unknown): void {
 // Net Command Validators
 // ============================================
 
-const VALID_COMPENSATION_TYPES = ['salary', 'hourly', 'equity', 'unpaid'];
-const VALID_EMPLOYMENT_TYPES = ['full_time', 'part_time', 'contract', 'internship', 'freelance'];
-const VALID_REMOTE_TYPES = ['remote', 'hybrid', 'onsite'];
-const VALID_EDUCATION_LEVELS = ['high_school', 'bachelors', 'masters', 'phd', 'any'];
-
 /**
  * Validate post create/update input
  */
@@ -233,46 +228,21 @@ export function validateNetPostInput(data: unknown, isCreate = false): void {
     throw new Error('Invalid post data: expires is required');
   }
 
-  // Validate optional enum fields
-  if (obj.compensation !== undefined && !VALID_COMPENSATION_TYPES.includes(obj.compensation as string)) {
-    throw new Error(`Invalid post data: compensation must be one of: ${VALID_COMPENSATION_TYPES.join(', ')}`);
+  // Validate optional string fields
+  if (obj.title !== undefined && typeof obj.title !== 'string') {
+    throw new Error('Invalid post data: title must be a string');
   }
 
-  if (obj.employment !== undefined && !VALID_EMPLOYMENT_TYPES.includes(obj.employment as string)) {
-    throw new Error(`Invalid post data: employment must be one of: ${VALID_EMPLOYMENT_TYPES.join(', ')}`);
+  if (obj.short_content !== undefined && typeof obj.short_content !== 'string') {
+    throw new Error('Invalid post data: short_content must be a string');
   }
 
-  if (obj.remote !== undefined && !VALID_REMOTE_TYPES.includes(obj.remote as string)) {
-    throw new Error(`Invalid post data: remote must be one of: ${VALID_REMOTE_TYPES.join(', ')}`);
+  if (obj.long_content !== undefined && typeof obj.long_content !== 'string') {
+    throw new Error('Invalid post data: long_content must be a string');
   }
 
-  if (obj.education !== undefined && !VALID_EDUCATION_LEVELS.includes(obj.education as string)) {
-    throw new Error(`Invalid post data: education must be one of: ${VALID_EDUCATION_LEVELS.join(', ')}`);
-  }
-
-  // Validate numeric fields
-  if (obj.salary !== undefined && typeof obj.salary !== 'number') {
-    throw new Error('Invalid post data: salary must be a number');
-  }
-
-  if (obj.hourly_rate !== undefined && typeof obj.hourly_rate !== 'number') {
-    throw new Error('Invalid post data: hourly_rate must be a number');
-  }
-
-  if (obj.experience !== undefined && typeof obj.experience !== 'number') {
-    throw new Error('Invalid post data: experience must be a number');
-  }
-
-  // Validate skills array
-  if (obj.skills !== undefined) {
-    if (!Array.isArray(obj.skills)) {
-      throw new Error('Invalid post data: skills must be an array');
-    }
-    for (const skill of obj.skills) {
-      if (typeof skill !== 'string') {
-        throw new Error('Invalid post data: all skills must be strings');
-      }
-    }
+  if (obj.expires !== undefined && typeof obj.expires !== 'string') {
+    throw new Error('Invalid post data: expires must be a string (ISO date format)');
   }
 }
 
