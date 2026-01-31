@@ -70,11 +70,7 @@ export function registerOrgsCommands(program: Command): void {
           throw new Error('Organization name is required. Provide via --name or in JSON input.');
         }
 
-        const data: { description?: string; website?: string } = {};
-        if (description) data.description = description;
-        if (website) data.website = website;
-
-        const org = await createOrg(name, Object.keys(data).length > 0 ? data : undefined);
+        const org = await createOrg(name, description, website);
 
         if (options.use) {
           setContext('org', org.id);
@@ -179,8 +175,8 @@ export function registerOrgsCommands(program: Command): void {
             'ID': org.id,
             'Name': org.name,
             'Slug': org.slug,
-            'Description': org.data?.description,
-            'Website': org.data?.website,
+            'Description': org.description,
+            'Website': org.website,
             'Status': org.status,
             'Created': org.created_at,
           });
@@ -232,13 +228,10 @@ export function registerOrgsCommands(program: Command): void {
           ? options.website
           : inputData.website as string | undefined;
 
-        const updates: { name?: string; data?: { description?: string; website?: string } } = {};
+        const updates: { name?: string; description?: string; website?: string } = {};
         if (name) updates.name = name;
-        if (description !== undefined || website !== undefined) {
-          updates.data = {};
-          if (description) updates.data.description = description;
-          if (website) updates.data.website = website;
-        }
+        if (description !== undefined) updates.description = description;
+        if (website !== undefined) updates.website = website;
 
         if (Object.keys(updates).length === 0) {
           throw new Error('At least one update option is required');
@@ -254,8 +247,8 @@ export function registerOrgsCommands(program: Command): void {
           printKeyValue({
             'ID': org.id,
             'Name': org.name,
-            'Description': org.data?.description,
-            'Website': org.data?.website,
+            'Description': org.description,
+            'Website': org.website,
           });
         }
       } catch (err) {

@@ -73,7 +73,7 @@ describe('Net Organizations API', () => {
 
       mock.onPost('/v1/orgs/create').reply(200, { data: mockOrg });
 
-      const result = await createOrg('Test Org', { description: 'A test org' });
+      const result = await createOrg('Test Org', 'A test org');
 
       expect(result.name).toBe('Test Org');
       expect(result.slug).toBe('test-org');

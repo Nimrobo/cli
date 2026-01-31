@@ -1,7 +1,6 @@
 import { getNetApiClient, resetNetApiClient } from './client';
 import {
   NetOrg,
-  OrgData,
   OrgMember,
   OrgInvite,
   OrgJoinRequest,
@@ -23,10 +22,17 @@ export interface OrgSearchParams {
 }
 
 // POST /v1/orgs/create
-export async function createOrg(name: string, data?: OrgData): Promise<NetOrg> {
+export async function createOrg(
+  name: string,
+  description?: string,
+  website?: string
+): Promise<NetOrg> {
   resetNetApiClient();
   const client = getNetApiClient();
-  const response = await client.post<NetApiResponse<NetOrg>>('/v1/orgs/create', { name, data });
+  const payload: { name: string; description?: string; website?: string } = { name };
+  if (description) payload.description = description;
+  if (website) payload.website = website;
+  const response = await client.post<NetApiResponse<NetOrg>>('/v1/orgs/create', payload);
   return response.data.data;
 }
 
@@ -47,7 +53,14 @@ export async function getOrgById(orgId: string): Promise<NetOrg> {
 }
 
 // PATCH /v1/orgs/:id
-export async function updateOrg(orgId: string, updates: { name?: string; data?: OrgData }): Promise<NetOrg> {
+export async function updateOrg(
+  orgId: string,
+  updates: {
+    name?: string;
+    description?: string | null;
+    website?: string | null;
+  }
+): Promise<NetOrg> {
   resetNetApiClient();
   const client = getNetApiClient();
   const response = await client.patch<NetApiResponse<NetOrg>>(`/v1/orgs/${orgId}`, updates);

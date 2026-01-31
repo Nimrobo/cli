@@ -179,17 +179,10 @@ async function applyOnboarding(filePath: string): Promise<void> {
   // Create org if specified
   let createdOrg = null;
   if (onboardData.org) {
-    const orgData: { description?: string; website?: string } = {};
-    if (onboardData.org.description) {
-      orgData.description = onboardData.org.description;
-    }
-    if (onboardData.org.website) {
-      orgData.website = onboardData.org.website;
-    }
-
     createdOrg = await createOrg(
       onboardData.org.name,
-      Object.keys(orgData).length > 0 ? orgData : undefined
+      onboardData.org.description,
+      onboardData.org.website
     );
 
     // Set the new org as context
@@ -222,8 +215,8 @@ async function applyOnboarding(filePath: string): Promise<void> {
         'ID': createdOrg.id,
         'Name': createdOrg.name,
         'Slug': createdOrg.slug,
-        'Description': createdOrg.data?.description,
-        'Website': createdOrg.data?.website,
+        'Description': createdOrg.description,
+        'Website': createdOrg.website,
       });
       console.log();
       info(`Organization "${createdOrg.name}" set as current context`);

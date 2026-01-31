@@ -42,16 +42,12 @@ export interface NetUser {
 export type OrgStatus = 'active' | 'deleted';
 export type OrgRole = 'owner' | 'admin' | 'member';
 
-export interface OrgData {
-  description?: string;
-  website?: string;
-}
-
 export interface NetOrg {
   id: string;
   name: string;
   slug: string;
-  data: OrgData | null;
+  description?: string;
+  website?: string;
   status: OrgStatus;
   role?: OrgRole;
   created_at: string;
