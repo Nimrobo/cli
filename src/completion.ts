@@ -91,7 +91,7 @@ const completionTree: Record<string, string[] | Record<string, string[]>> = {
   'net posts update': ['--json', '--file', '--stdin', '--content-file', '--expires', '--content', '--title', '--compensation', '--employment', '--remote', '--salary', '--hourly-rate', '--experience', '--skills', '--city', '--country'],
   'net posts close': ['--json'],
   'net posts delete': ['--json'],
-  'net posts apply': ['--json', '--file', '--stdin', '--content-file', '--cover-note', '--expected-salary', '--availability', '--content'],
+  'net posts apply': ['--json', '--file', '--stdin', '--content-file', '--note', '--expected-salary', '--availability', '--content'],
   'net posts applications': ['--json', '--status', '--keyword', '--limit', '--skip'],
   'net posts check-applied': ['--json'],
   'net posts use': ['--json'],

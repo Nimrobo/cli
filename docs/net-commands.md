@@ -481,7 +481,7 @@ nimrobo net posts apply post_abc123
 
 # With details
 nimrobo net posts apply post_abc123 \
-  --cover-note "I'm excited about this opportunity..." \
+  --note "I'm excited about this opportunity..." \
   --expected-salary 140000 \
   --availability "2024-05-01"
 

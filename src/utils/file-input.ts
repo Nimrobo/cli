@@ -256,8 +256,8 @@ export function validateNetApplicationInput(data: unknown): void {
 
   const obj = data as Record<string, unknown>;
 
-  if (obj.cover_note !== undefined && typeof obj.cover_note !== 'string') {
-    throw new Error('Invalid application data: cover_note must be a string');
+  if (obj.note !== undefined && typeof obj.note !== 'string') {
+    throw new Error('Invalid application data: note must be a string');
   }
 
   if (obj.expected_salary !== undefined && typeof obj.expected_salary !== 'number') {

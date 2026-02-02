@@ -113,7 +113,7 @@ export interface NetPost {
 export type ApplicationStatus = 'pending' | 'accepted' | 'rejected' | 'withdrawn';
 
 export interface ApplicationData {
-  cover_note?: string;
+  note?: string;
   expected_salary?: number;
   availability?: string;
 }

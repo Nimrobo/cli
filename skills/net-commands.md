@@ -581,7 +581,7 @@ nimrobo net posts apply post_abc123
 **With details:**
 ```bash
 nimrobo net posts apply post_abc123 \
-  --cover-note "I'm excited about this opportunity..." \
+  --note "I'm excited about this opportunity..." \
   --expected-salary 140000 \
   --availability "2024-05-01"
 ```
@@ -594,7 +594,7 @@ nimrobo net posts apply post_abc123 -f application.json
 **application.json:**
 ```json
 {
-  "cover_note": "I'm excited about this opportunity...",
+  "note": "I'm excited about this opportunity...",
   "expected_salary": 140000,
   "availability": "2024-05-01",
   "content_md": "## Why I'm a great fit\n\n..."

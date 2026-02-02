@@ -78,9 +78,9 @@ nimrobo net posts list \
 # 4. View job details
 nimrobo net posts get post_xyz789 --use
 
-# 5. Apply with cover note
+# 5. Apply with note
 nimrobo net posts apply current \
-  --cover-note "I'm excited about this role because..." \
+  --note "I'm excited about this role because..." \
   --expected-salary 140000 \
   --availability "2024-05-01"
 
@@ -289,7 +289,7 @@ nimrobo net posts check-applied post_123
 
 # 3. Apply to matching ones
 nimrobo net posts apply post_123 \
-  --cover-note "Based on my experience with distributed systems..." \
+  --note "Based on my experience with distributed systems..." \
   --expected-salary 130000
 
 # 4. Track applications

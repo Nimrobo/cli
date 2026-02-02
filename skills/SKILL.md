@@ -103,7 +103,7 @@ nimrobo net applications accept app_123
 ```bash
 # Search and apply
 nimrobo net posts list --query "engineer" --filter '{"remote": "remote", "salary_min": 100000}'
-nimrobo net posts apply post_xyz --cover-note "I'm excited about this role..."
+nimrobo net posts apply post_xyz --note "I'm excited about this role..."
 
 # Track applications
 nimrobo net my applications --status pending

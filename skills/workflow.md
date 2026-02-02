@@ -113,9 +113,9 @@ nimrobo net posts list \
 # 4. View job details
 nimrobo net posts get post_xyz789 --use
 
-# 5. Apply with cover note
+# 5. Apply with note
 nimrobo net posts apply current \
-  --cover-note "I'm excited about this role..." \
+  --note "I'm excited about this role..." \
   --expected-salary 140000
 
 # 6. Track applications

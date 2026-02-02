@@ -382,7 +382,7 @@ export function registerPostsCommands(program: Command): void {
     .option('-f, --file <path>', 'JSON file with application data')
     .option('--stdin', 'Read JSON input from stdin')
     .option('--content-file <path>', 'Read application content from file')
-    .option('--cover-note <note>', 'Cover note for application')
+    .option('--note <text>', 'Note for application')
     .option('--expected-salary <salary>', 'Expected salary')
     .option('--availability <date>', 'Availability')
     .option('--content <markdown>', 'Application content (markdown)')
@@ -408,13 +408,13 @@ export function registerPostsCommands(program: Command): void {
 
         // Merge JSON input with CLI flags (CLI overrides JSON)
         const data: ApplicationData = {};
-        const coverNote = options.coverNote || inputData.cover_note;
+        const note = options.note || inputData.note;
         const expectedSalary = options.expectedSalary
           ? parseFloat(options.expectedSalary)
           : inputData.expected_salary as number | undefined;
         const availability = options.availability || inputData.availability;
 
-        if (coverNote) data.cover_note = coverNote as string;
+        if (note) data.note = note as string;
         if (expectedSalary) data.expected_salary = expectedSalary;
         if (availability) data.availability = availability as string;
 
