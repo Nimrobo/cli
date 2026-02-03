@@ -1,6 +1,6 @@
 {
   "name": "@nimrobo/cli",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "CLI tool for interacting with Nimrobo AI APIs - Voice Screening & Matching Network",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -43,7 +43,7 @@
     "type": "git",
     "url": "https://github.com/nimrobo/cli.git"
   },
-  "homepage": "https://nimrobo.com",
+  "homepage": "https://nimroboai.com",
   "bugs": {
     "url": "https://github.com/nimrobo/cli/issues"
   },

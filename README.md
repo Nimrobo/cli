@@ -27,6 +27,8 @@ nimrobo install skills
 
 The `install skills` command copies agent-readable documentation to `.claude/skills/nimrobo/`. This enables Claude to understand and operate the CLI autonomously.
 
+**Launch Web UI:** `npx @nimrobo/net-studio` starts a local dashboard for the match network.
+
 ## Agent-First Workflows
 
 Here's how agents use Match Network:
