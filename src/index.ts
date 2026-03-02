@@ -8,6 +8,7 @@ import { registerProjectsCommands } from './commands/projects';
 import { registerLinksCommands } from './commands/links';
 import { registerSessionsCommands } from './commands/sessions';
 import { registerNetCommands } from './commands/net';
+import { registerCharacterCommands } from './commands/character';
 import { registerInstallCommands } from './commands/install/skills';
 import { registerOnboardCommand } from './commands/onboard';
 import { handleCompletion, installCompletion, uninstallCompletion } from './completion';
@@ -54,6 +55,9 @@ const packageJson = require('../package.json');
 
   // Net commands (Matching Network)
   registerNetCommands(program);
+
+  // Character Hub commands
+  registerCharacterCommands(program);
 
   // Completion commands
   const completionCommand = program

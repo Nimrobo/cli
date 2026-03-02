@@ -366,6 +366,59 @@ export interface SessionSummary {
   runId?: string;
 }
 
+// Character Hub types
+export type CharacterVersionState = 'draft' | 'submitted' | 'in_review' | 'approved' | 'rejected';
+export type CharacterState = 'draft' | 'submitted' | 'in_review' | 'published' | 'unlisted' | 'deprecated';
+
+export interface CharacterVersion {
+  version: string;
+  state: CharacterVersionState;
+  submitted_at: string | null;
+  reviewed_at: string | null;
+  review_comment: string | null;
+  created_at: string;
+}
+
+export interface CharacterPublishResult {
+  success: boolean;
+  character: string;
+  version: string;
+  state: CharacterVersionState;
+}
+
+export interface CharacterStatusResult {
+  success: boolean;
+  character: {
+    name: string;
+    state: CharacterState;
+    total_clones: number;
+    latest_published_version: string | null;
+  };
+  versions: CharacterVersion[];
+}
+
+export interface CharacterListItem {
+  name: string;
+  author_id: string;
+  author_username: string;
+  state: CharacterState;
+  description: string;
+  tags: string[];
+  minimum_tier: string;
+  total_clones: number;
+  latest_published_version: string | null;
+  icon_url: string | null;
+  created_at: string;
+  versions: CharacterVersion[];
+}
+
+export interface ReviewDecisionResult {
+  success: boolean;
+  decision: 'approve' | 'reject';
+  character: string;
+  version: string;
+}
+
 // API Response types
 export interface ApiResponse<T> {
   success: boolean;
